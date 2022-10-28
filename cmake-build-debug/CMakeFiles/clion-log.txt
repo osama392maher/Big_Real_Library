@@ -1,0 +1,4 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja -S "/Volumes/My driver/OOP Assigment 2/Untitled/Big-Real-Class" -B "/Volumes/My driver/OOP Assigment 2/Untitled/Big-Real-Class/cmake-build-debug"
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Volumes/My driver/OOP Assigment 2/Untitled/Big-Real-Class/cmake-build-debug
