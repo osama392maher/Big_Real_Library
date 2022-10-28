@@ -1,0 +1,9 @@
+# ninja log v5
+1	290	1666983157978700213	CMakeFiles/Big_Real.dir/BigRealClass.cpp.o	cbe294b0fa092cc
+291	328	1666983158018478431	Big_Real	fca183b571cfff52
+1	990	1666983010689803352	CMakeFiles/Big_Real.dir/BigDecimalIntClass.cpp.o	a3119dc55f11aae1
+5	365	1666983143127988413	CMakeFiles/Big_Real.dir/main.cpp.o	aeec8db0d2960c34
+1	316	1666983326850525529	CMakeFiles/Big_Real.dir/BigRealClass.cpp.o	72286e080b5f1142
+1	325	1666983326859743135	CMakeFiles/Big_Real.dir/main.cpp.o	3d27ff96d9510839
+1	597	1666983327131245876	CMakeFiles/Big_Real.dir/BigDecimalIntClass.cpp.o	fc8aa66599063fd2
+597	625	1666983327162029270	Big_Real	fca183b571cfff52

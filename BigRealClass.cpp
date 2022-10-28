@@ -1,30 +1,40 @@
+#include "BigRealClass.h"
 
-void BigReal::BigReal(string realNumber) {
-    string wholePart = "";
-    string fractionalPart = "";
+
+BigReal::BigReal(string realNumber) {
+    string wholeParts = "";
+    string fractionalParts = "";
     int i = 0;
     if (realNumber[0] == '-') {
         sign = '-';
         i++;
     } else {
-        sign = '+';
+        sign= '+';
     }
     while (realNumber[i] != '.') {
-        wholePart += realNumber[i];
+        wholeParts += realNumber[i];
         i++;
     }
     i++;
     while (i < realNumber.length()) {
-        fractionalPart += realNumber[i];
+        fractionalParts += realNumber[i];
         i++;
     }
-    this->wholePart = BigDecimalInt(wholePart);
-    this->fractionalPart = BigDecimalInt(fractionalPart);
+    wholePart = BigDecimalInt(wholeParts);
+    fractionalPart = BigDecimalInt(fractionalParts);
 }
 
 BigReal::BigReal(BigDecimalInt bigInteger) {
     this->wholePart = bigInteger;
     this->fractionalPart = BigDecimalInt("0");
-    this->sign = bigInteger.sign;
+    this->sign = bigInteger.Sign();
 }
+
+BigReal::BigReal(const BigReal& bigReal) {
+    this->wholePart = bigReal.wholePart;
+    this->fractionalPart = bigReal.fractionalPart;
+    this->sign = bigReal.sign;
+}
+
+
 
