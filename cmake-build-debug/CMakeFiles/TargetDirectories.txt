@@ -1,3 +1,0 @@
-/Volumes/My driver/OOP Assigment 2/Untitled/Big-Real-Class/cmake-build-debug/CMakeFiles/Big_Real_Class.dir
-/Volumes/My driver/OOP Assigment 2/Untitled/Big-Real-Class/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Volumes/My driver/OOP Assigment 2/Untitled/Big-Real-Class/cmake-build-debug/CMakeFiles/rebuild_cache.dir
