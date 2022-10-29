@@ -36,11 +36,15 @@ public:
     friend ostream &operator << (ostream &out, BigDecimalInt num);
     int size();
     int Sign();
-
+    void push_back(char ch);
+    void push_front(char ch);
     BigDecimalInt(){}
     BigDecimalInt(string num)
     {
         setNumber(num);
+    }
+    string getnum(){
+        return number;
     }
 };
 
