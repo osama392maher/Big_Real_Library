@@ -38,8 +38,6 @@ BigReal::BigReal(const BigReal& bigReal) {
 
 BigReal BigReal::operator+(BigReal& other) {
     BigReal result;
-    BigDecimalInt tmpWhole("0");
-    result.wholePart = tmpWhole;
     BigDecimalInt decLHStmp = this->fractionalPart, decRHStmp = other.fractionalPart;
 
     //Padding fraction part with zeroes
