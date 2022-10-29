@@ -1,3 +1,0 @@
-C:/Users/Maya Ayman/Desktop/2nd_OOP_Assignment/Big-Real-Class/cmake-build-debug/CMakeFiles/Big_Real.dir
-C:/Users/Maya Ayman/Desktop/2nd_OOP_Assignment/Big-Real-Class/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Maya Ayman/Desktop/2nd_OOP_Assignment/Big-Real-Class/cmake-build-debug/CMakeFiles/rebuild_cache.dir
