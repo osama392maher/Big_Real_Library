@@ -14,11 +14,14 @@
 #include "BigRealClass.h"
 
 int main() {
-    string n1 = "-34", n2 = "100.76", n3 = "-500", n4 = "7.76";
-
-    BigReal input(n4), input3(n2);
-    BigReal e = input + input3;
-    BigReal d = input - input3;
+    BigReal n1 ("11.9000000000");
+    BigReal n2 ("2333333333339.11343200000");
+    BigReal n3(n1 + n2);
+//    string n1 = "-34", n2 = "100.76", n3 = "-500", n4 = "7.76";
+//
+//    BigReal input(n4), input3(n2);
+//    BigReal e = input + input3;
+//    BigReal d = input - input3;
 //    cout << "---------TEST ONE---------" << "\n";
 //    cout << e;
 //    cout << d;
