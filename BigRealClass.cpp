@@ -1,11 +1,12 @@
 #include "BigRealClass.h"
 
-    BigReal::BigReal(double realNumber) {  // Default constructor  //I added implementation (but don't yet know how to remove it from the header)
+BigReal::BigReal(double realNumber) {
     string num = to_string(realNumber);
     BigReal number(num);
     this->wholePart = number.wholePart;
     this->fractionalPart = number.fractionalPart;
 }
+
 BigReal::BigReal(string realNumber) {
     string wholeParts = "";
     string fractionalParts = "";
@@ -100,5 +101,4 @@ BigReal BigReal::operator-(BigReal &other) {
     BigReal finalResult(res_with_dec_point);
     return finalResult;
 }
-
 

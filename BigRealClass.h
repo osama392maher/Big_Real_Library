@@ -14,6 +14,7 @@ private:
     char sign = '+';
 public:
     explicit BigReal(double realNumber = 0.0);  // Default constructor  //I added implementation (but don't yet know how to remove it from the header)
+
     explicit BigReal (string realNumber);
     explicit BigReal (BigDecimalInt bigInteger);
     BigReal (const BigReal& other);     // Copy constructor
