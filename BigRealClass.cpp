@@ -45,6 +45,14 @@ BigReal::BigReal(const BigReal& bigReal) {
     this->sign = bigReal.sign;
 }
 
+
+BigReal& BigReal::operator= (BigReal other){
+    this->sign = other.sign;
+    this->wholePart = other.wholePart;
+    this ->fractionalPart = other.fractionalPart;
+    return (*this);
+}
+
 BigReal BigReal::operator+(BigReal& other) {
     BigReal result;
     BigDecimalInt decLHStmp = this->fractionalPart, decRHStmp = other.fractionalPart;
@@ -105,12 +113,76 @@ BigReal BigReal::operator-(BigReal &other) {
     return finalResult;
 }
 
-ostream& operator << (ostream& out, BigReal num) {
-    if(num.sign == '-')
-        out << num.sign;
-    out << num.wholePart << "." << num.fractionalPart;
+bool BigReal::operator<  (const BigReal& anotherReal){
+    if (this->sign != anotherReal.sign){
+        return (this->sign == '-');
+    }else{
+        if (this->sign == '+'){
+            if (this->wholePart == anotherReal.wholePart){
+                return (this->fractionalPart < anotherReal.fractionalPart);
+            }else {
+                return (this->wholePart < anotherReal.wholePart);
+            }
+        }else{
+            if (this->wholePart == anotherReal.wholePart){
+                return (this->fractionalPart > anotherReal.fractionalPart);
+            }else {
+                return (this->wholePart > anotherReal.wholePart);
+            }
+        }
+    }
+}
+
+bool BigReal::operator>  (const BigReal& anotherReal){
+    if (this->sign != anotherReal.sign){
+        return (this->sign == '+');
+    }else{
+        if (this->sign == '+'){
+            if (this->wholePart == anotherReal.wholePart){
+                return (this->fractionalPart > anotherReal.fractionalPart);
+            }else {
+                return (this->wholePart > anotherReal.wholePart);
+            }
+        }else{
+            if (this->wholePart == anotherReal.wholePart){
+                return (this->fractionalPart < anotherReal.fractionalPart);
+            }else {
+                return (this->wholePart < anotherReal.wholePart);
+            }
+        }
+    }
+}
+
+bool BigReal::operator== (const BigReal& anotherReal){
+    return (this->sign == anotherReal.sign
+    && this->wholePart == anotherReal.wholePart
+    && this->fractionalPart == anotherReal.fractionalPart);
+}
+
+int BigReal:: size(){
+    return (this->wholePart.size() + this->fractionalPart.size() + 1);
+}
+
+char BigReal:: Sign(){
+    return (this->sign);
+}
+
+ostream& operator << (ostream& out,  BigReal num){
+    if (num.Sign() == '-'){
+        out << num.Sign();
+    }
+    out << num.wholePart << '.' << num.fractionalPart <<"\n";
     return out;
 }
+
+istream& operator >> (istream& in, BigReal& num){
+    string input;
+    in >> input;
+    BigReal result(input);
+    num = result;
+    return in;
+}
+
 //(\d*\.)?\d+
 bool BigReal::checkValidInput(string input) {
     regex pattern("((-)?\\d*\\.)?\\d+");
