@@ -18,7 +18,7 @@ public:
     BigReal (BigDecimalInt bigInteger);
     BigReal (const BigReal& other);     // Copy constructor
     BigReal (BigReal&& other);      // Move constructor
-    BigReal& operator= (BigReal& other); // Assignment operator
+    BigReal& operator= (BigReal other); // Assignment operator
     BigReal& operator= (BigReal&& other); // Move assignment operator
     BigReal operator+ (BigReal& other);
     BigReal operator- (BigReal& other);

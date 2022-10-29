@@ -37,4 +37,3 @@ BigReal::BigReal(const BigReal& bigReal) {
 }
 
 
-
