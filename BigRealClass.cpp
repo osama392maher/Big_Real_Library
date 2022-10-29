@@ -6,8 +6,11 @@ BigReal::BigReal(double realNumber) {
     this->wholePart = number.wholePart;
     this->fractionalPart = number.fractionalPart;
 }
-
 BigReal::BigReal(string realNumber) {
+    if(!checkValidInput(realNumber)){
+        cout << "Invalid" << "\n";
+        exit(1);
+    }
     string wholeParts = "";
     string fractionalParts = "";
     int i = 0;
@@ -102,3 +105,14 @@ BigReal BigReal::operator-(BigReal &other) {
     return finalResult;
 }
 
+ostream& operator << (ostream& out, BigReal num) {
+    if(num.sign == '-')
+        out << num.sign;
+    out << num.wholePart << "." << num.fractionalPart;
+    return out;
+}
+//(\d*\.)?\d+
+bool BigReal::checkValidInput(string input) {
+    regex pattern("((-)?\\d*\\.)?\\d+");
+    return regex_match(input, pattern);
+}
