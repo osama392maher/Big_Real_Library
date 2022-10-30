@@ -29,17 +29,18 @@ public:
     BigReal operator- (BigReal& other);
 
     //Comparison operators
-    bool operator<  (BigReal anotherReal);
-    bool operator>  (BigReal anotherReal);
-    bool operator== (BigReal anotherReal);
+    bool operator<  (const BigReal& anotherReal);
+    bool operator>  (const BigReal& anotherReal);
+    bool operator== (const BigReal& anotherReal);
+
 
     //input/output operators
     friend ostream& operator << (ostream& out, BigReal num);
-    friend istream& operator >> (istream& out, BigReal num);
+    friend istream& operator >> (istream& in, BigReal& num);
 
     //Additional functions
     int size();
-    int Sign();
+    char Sign();
     bool checkValidInput(string input);
 
 
