@@ -4,16 +4,24 @@
 // Constructors
 BigReal::BigReal(double realNumber) {
     string num = to_string(realNumber);
+    removeTrailingZeroes(num);
     BigReal number(num);
     this -> wholePart = number.wholePart;
     this -> fractionalPart = number.fractionalPart;
+    if (!isdigit(num[0])) {
+        if (num[0] == '+')
+            sign = '+';
+        else
+            sign = '-';
+    }
 }
 
 BigReal::BigReal(string realNumbers) {
     if (!checkValidInput(realNumbers)) {
-        cout << "Invalid input" << endl;
+        cout << "Invalid Input" << endl;
         exit(1);
     }
+    removeTrailingZeroes(realNumbers);
     string wholeParts = "";
     string fractionalParts = "";
     int i = 0;
@@ -46,7 +54,10 @@ BigReal::BigReal(string realNumbers) {
 BigReal::BigReal(BigDecimalInt bigInteger) {
     this -> wholePart = bigInteger;
     this -> fractionalPart = BigDecimalInt("0");
-    this -> sign = bigInteger.sign();
+    if (bigInteger.sign())
+        this -> sign = '+';
+    else
+        this -> sign = '-';
 }
 
 BigReal::BigReal(const BigReal & bigReal) {
@@ -147,13 +158,19 @@ BigReal BigReal::operator- (BigReal & other) {
     BigDecimalInt decRHS(decRHStmp);
 
     //Combining whole and fraction parts then subtracting
-    string whole = wholePart.getNumber(), fraction = decLHS.getNumber(), tmpNum = whole + fraction; //1st number
+    string whole = wholePart.getNumber(), fraction = decLHS.getNumber(), tmpNum = this->sign + whole + fraction; //1st number
     BigDecimalInt newNum1(tmpNum);
-    whole = other.wholePart.getNumber(), fraction = decRHS.getNumber(), tmpNum = whole + fraction; //2nd number
+    whole = other.wholePart.getNumber(), fraction = decRHS.getNumber(), tmpNum = other.sign + whole + fraction; //2nd number
     BigDecimalInt newNum2(tmpNum);
 
     BigDecimalInt res_without_dec_point = newNum1 - newNum2;
-    string res_with_dec_point = res_without_dec_point.getNumber();
+
+    string res_with_dec_point;
+    if (!res_without_dec_point.sign())
+        res_with_dec_point = '-' + res_without_dec_point.getNumber();
+    else
+        res_with_dec_point = res_without_dec_point.getNumber();
+
     res_with_dec_point.insert(res_with_dec_point.end() - decLHS.size(), '.');
 
     BigReal finalResult(res_with_dec_point);
@@ -238,4 +255,9 @@ char BigReal::Sign() {
 bool BigReal::checkValidInput(const string & input) {
     regex pattern("[+-]?((\\d+(\\.\\d*)?)|(\\.\\d+))");
     return regex_match(input, pattern);
+}
+
+void BigReal::removeTrailingZeroes(string &number) {
+    while (number.back() == '0')
+        number.pop_back();
 }

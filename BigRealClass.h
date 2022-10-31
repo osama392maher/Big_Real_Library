@@ -43,6 +43,8 @@ public:
     int size();
     char Sign();
     bool checkValidInput(const string & input);
+    void removeTrailingZeroes(string&);
 
+    void removeTrailingZeroes();
 };
 // #endif //BIG_REAL_CLASS_BIGREALCLASS_H
