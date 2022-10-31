@@ -23,7 +23,7 @@ public:
     BigReal(BigReal && other) noexcept; // Move constructor
 
     //Assignment operators
-    BigReal & operator = (BigReal other); // Assignment operator
+    BigReal & operator = (BigReal& other); // Assignment operator
     BigReal & operator = (BigReal && other) noexcept; // Move assignment operator
 
     //Arithmetic operators

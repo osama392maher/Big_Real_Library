@@ -18,6 +18,7 @@ bool BigDecimalInt :: checkValidInput(string input)
     regex validInput("[-+]?[0-9]+");
     return regex_match(input, validInput);
 }
+
 // constructor that takes a string as an input.
 void BigDecimalInt :: setNumber(string num)
 {
@@ -28,16 +29,16 @@ void BigDecimalInt :: setNumber(string num)
         if(number[0] == '+')
         {
             number.erase(0,1);
-            sign = '+';
+            signNumber = '+';
         }
         else if (number[0] == '-')
         {
             number.erase(0,1);
-            sign = '-';
+            signNumber = '-';
         }
         else
         {
-            sign = '+';
+            signNumber = '+';
         }
     }
     else
@@ -64,15 +65,15 @@ bool BigDecimalInt :: operator < (const BigDecimalInt& anotherDec)
     comp1 += number;
     comp2 += anotherDec.number;
 
-    if(sign == '-' && anotherDec.sign == '+')
+    if(signNumber == '-' && anotherDec.signNumber == '+')
     {
         return true;
     }
-    else if(sign == '+' && anotherDec.sign == '-')
+    else if(signNumber == '+' && anotherDec.signNumber == '-')
     {
         return false;
     }
-    else if(sign == '+' && anotherDec.sign == '+')
+    else if(signNumber == '+' && anotherDec.signNumber == '+')
     {
         return comp1 < comp2;
     }
@@ -99,15 +100,15 @@ bool BigDecimalInt :: operator > (const BigDecimalInt &anotherDec)
     comp1 += number;
     comp2 += anotherDec.number;
 
-    if(sign == '-' && anotherDec.sign == '+')
+    if(signNumber == '-' && anotherDec.signNumber == '+')
     {
         return false;
     }
-    else if(sign == '+' && anotherDec.sign == '-')
+    else if(signNumber == '+' && anotherDec.signNumber == '-')
     {
         return true;
     }
-    else if(sign == '+' && anotherDec.sign == '+')
+    else if(signNumber == '+' && anotherDec.signNumber == '+')
     {
         return comp1 > comp2;
     }
@@ -120,7 +121,7 @@ bool BigDecimalInt :: operator > (const BigDecimalInt &anotherDec)
 // operator == overloading function.
 bool BigDecimalInt :: operator == (const BigDecimalInt anotherDec)
 {
-    if (sign == anotherDec.sign && number == anotherDec.number)
+    if (signNumber == anotherDec.signNumber && number == anotherDec.number)
     {
         return true;
 
@@ -134,7 +135,7 @@ bool BigDecimalInt :: operator == (const BigDecimalInt anotherDec)
 // operator = overloading function.
 BigDecimalInt& BigDecimalInt :: operator = (BigDecimalInt anotherDec)
 {
-    sign = anotherDec.sign;
+    signNumber = anotherDec.signNumber;
     number = anotherDec.number;
     return *this;
 }
@@ -197,7 +198,7 @@ string subtraction(string num1,string num2){
 BigDecimalInt BigDecimalInt :: operator + (BigDecimalInt number2)
 {
     BigDecimalInt result;
-    char signNumber1 = sign, signNumber2 = number2.sign;
+    char signNumber1 = signNumber, signNumber2 = number2.signNumber;
     string num1 = number, num2 = number2.number;
     BigDecimalInt number1 = *this;
 
@@ -209,19 +210,19 @@ BigDecimalInt BigDecimalInt :: operator + (BigDecimalInt number2)
     }
 
     if (signNumber1 == signNumber2){
-        result.sign = signNumber1;
+        result.signNumber = signNumber1;
         result.number = addition(num1,num2);
 
     }else{
 
-        if(number1.sign=='-')
+        if(number1.signNumber == '-')
         {
-            number1.sign = '+';
-            result = (number2-number1);
+            number1.signNumber = '+';
+            result = (number2 - number1);
         }
         else{
-            number2.sign = '+';
-            result = (number1-number2);
+            number2.signNumber = '+';
+            result = (number1 - number2);
         }
     }
     return result;
@@ -234,7 +235,7 @@ BigDecimalInt BigDecimalInt :: operator - (BigDecimalInt anotherDec)
     deque<long long> d;
     string strmin = "", res = "";
     string num1 = number, num2 = anotherDec.number;
-    char sign1 = sign, sign2 = anotherDec.sign;
+    char sign1 = signNumber, sign2 = anotherDec.signNumber;
 
     if (number.length() > anotherDec.number.length())
     {
@@ -272,14 +273,14 @@ BigDecimalInt BigDecimalInt :: operator - (BigDecimalInt anotherDec)
     else
     {
         res = addition(num1,num2);
-        if(sign == '-')
+        if(signNumber == '-')
         {
-            obj.sign = '-';
+            obj.signNumber = '-';
             is_determined = true;
         }
         else
         {
-            obj.sign = '+';
+            obj.signNumber = '+';
             is_determined = true;
         }
 
@@ -302,14 +303,14 @@ BigDecimalInt BigDecimalInt :: operator - (BigDecimalInt anotherDec)
     if(res.empty()) res = "0";
     if (!is_determined && (ok))
     {
-        obj.sign = '-';
+        obj.signNumber = '-';
     }
     else if(!is_determined)
     {
-        obj.sign = '+';
+        obj.signNumber = '+';
     }
 
-    obj.number=res;
+    obj.number = res;
     return obj;
 }
 
@@ -320,9 +321,9 @@ int BigDecimalInt :: size()
 }
 
 // function returns the sign.
-int BigDecimalInt :: Sign()
+int BigDecimalInt :: sign()
 {
-    if (sign == '+')
+    if (signNumber == '+')
     {
         return 1;
     }
@@ -332,24 +333,10 @@ int BigDecimalInt :: Sign()
     }
 }
 
-// function to push a character.
-void BigDecimalInt ::push_back(char ch)
-{
-    number.push_back(ch);
-}
-
-// function to push a character in the front.
-void BigDecimalInt ::push_front(char ch)
-{
-    string temp;
-    temp = ch + number;
-    number = temp;
-}
-
 // operator << overloading function.
 ostream &operator << (ostream &out, BigDecimalInt num)
 {
-    if(num.sign == '+')
+    if(num.signNumber == '+')
     {
         out << num.number ;
     }
@@ -361,7 +348,7 @@ ostream &operator << (ostream &out, BigDecimalInt num)
         }
         else
         {
-            out << num.sign << num.number ;
+            out << num.signNumber << num.number ;
         }
     }
     return out;

@@ -46,7 +46,7 @@ BigReal::BigReal(string realNumbers) {
 BigReal::BigReal(BigDecimalInt bigInteger) {
     this -> wholePart = bigInteger;
     this -> fractionalPart = BigDecimalInt("0");
-    this -> sign = bigInteger.Sign();
+    this -> sign = bigInteger.sign();
 }
 
 BigReal::BigReal(const BigReal & bigReal) {
@@ -67,7 +67,7 @@ BigReal & BigReal::operator = (BigReal && other) noexcept {
     return *this;
 }
 
-BigReal & BigReal::operator = (BigReal other) {
+BigReal & BigReal::operator = (BigReal& other) {
     this -> sign = other.sign;
     this -> wholePart = other.wholePart;
     this -> fractionalPart = other.fractionalPart;
@@ -76,7 +76,7 @@ BigReal & BigReal::operator = (BigReal other) {
 
 //___________________________________________
 // Arithmetic operators
-BigReal BigReal::operator + (BigReal & other) {
+BigReal BigReal::operator+ (BigReal & other) {
     // ADD NEGATIVE NUMBERS
     if (this -> sign == '-' && other.sign == '-') {
         BigReal a = * this;
@@ -102,7 +102,7 @@ BigReal BigReal::operator + (BigReal & other) {
         return b - a;
     }
     BigReal result;
-    BigDecimalInt decLHStmp = this -> fractionalPart, decRHStmp = other.fractionalPart;
+    string decLHStmp = this->fractionalPart.getNumber(), decRHStmp = other.fractionalPart.getNumber();
 
     //Padding fraction part with zeroes
     while (decLHStmp.size() < decRHStmp.size()) {
@@ -117,10 +117,10 @@ BigReal BigReal::operator + (BigReal & other) {
 
     //Checking if there is a carry from the addition of the fraction part
     if (result.fractionalPart.size() > decLHS.size()) {
-        string digit(1, result.fractionalPart.getnum()[0]);
+        string digit(1, result.fractionalPart.getNumber()[0]);
         BigDecimalInt carry(digit);
         result.wholePart = result.wholePart + carry;
-        string newDecPart = result.fractionalPart.getnum();
+        string newDecPart = result.fractionalPart.getNumber();
 
         //Removing the carry from the fraction part
         reverse(newDecPart.rbegin(), newDecPart.rend());
@@ -129,12 +129,12 @@ BigReal BigReal::operator + (BigReal & other) {
         BigDecimalInt newDec(newDecPart);
         result.fractionalPart = newDec;
     }
-    result.wholePart = result.wholePart + this -> wholePart + other.wholePart;
+    result.wholePart = result.wholePart + this->wholePart + other.wholePart;
     return result;
 }
 
-BigReal BigReal::operator - (BigReal & other) {
-    BigDecimalInt decLHStmp = this -> fractionalPart, decRHStmp = other.fractionalPart;
+BigReal BigReal::operator- (BigReal & other) {
+    string decLHStmp = this->fractionalPart.getNumber(), decRHStmp = other.fractionalPart.getNumber();
 
     //Padding fraction part with zeroes
     while (decLHStmp.size() < decRHStmp.size()) {
@@ -147,20 +147,15 @@ BigReal BigReal::operator - (BigReal & other) {
     BigDecimalInt decRHS(decRHStmp);
 
     //Combining whole and fraction parts then subtracting
-    string whole = wholePart.getnum(), fraction = decLHStmp.getnum(), tmpNum = whole + fraction;
-    if (this -> sign == '-')
-        tmpNum = "-" + tmpNum; //1st number
+    string whole = wholePart.getNumber(), fraction = decLHS.getNumber(), tmpNum = whole + fraction; //1st number
     BigDecimalInt newNum1(tmpNum);
-    whole = other.wholePart.getnum(), fraction = decRHS.getnum(), tmpNum = whole + fraction; //2nd number
-    if (other.sign == '-')
-        tmpNum = "-" + tmpNum;
+    whole = other.wholePart.getNumber(), fraction = decRHS.getNumber(), tmpNum = whole + fraction; //2nd number
     BigDecimalInt newNum2(tmpNum);
 
     BigDecimalInt res_without_dec_point = newNum1 - newNum2;
-    string res_with_dec_point = res_without_dec_point.getnum();
+    string res_with_dec_point = res_without_dec_point.getNumber();
     res_with_dec_point.insert(res_with_dec_point.end() - decLHS.size(), '.');
-    if (!res_without_dec_point.Sign())
-        res_with_dec_point = "-" + res_with_dec_point;
+
     BigReal finalResult(res_with_dec_point);
     return finalResult;
 }
