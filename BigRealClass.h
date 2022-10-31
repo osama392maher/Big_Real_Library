@@ -41,7 +41,7 @@ public:
     //Additional functions
     int size();
     char Sign();
-    bool checkValidInput(string input);
+    bool checkValidInput(const string& input);
 
 
 };

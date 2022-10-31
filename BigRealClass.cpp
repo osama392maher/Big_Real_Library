@@ -6,31 +6,30 @@ BigReal::BigReal(double realNumber) {
     this->wholePart = number.wholePart;
     this->fractionalPart = number.fractionalPart;
 }
-BigReal::BigReal(string realNumber) {
-    if(!checkValidInput(realNumber)){
-        cout << "Invalid" << "\n";
-        exit(1);
-    }
-    string wholeParts = "";
-    string fractionalParts = "";
-    int i = 0;
-    if (realNumber[0] == '-') {
-        sign = '-';
+BigReal::BigReal(string realNumbers) {
+    regex pattern(R"(((-)?\d*\.)?\d+)"); //regex pattern to check if the input is valid
+    if(regex_match(realNumbers, pattern)) {
+        string wholeParts = "";
+        string fractionalParts = "";
+        int i = 0;
+        if (realNumbers[0] == '-') {
+            sign = '-';
+            i++;
+        } else {
+            sign = '+';
+        }
+        while (realNumbers[i] != '.') {
+            wholeParts += realNumbers[i];
+            i++;
+        }
         i++;
-    } else {
-        sign = '+';
+        while (i < realNumbers.length()) {
+            fractionalParts += realNumbers[i];
+            i++;
+        }
+        wholePart = BigDecimalInt(wholeParts);
+        fractionalPart = BigDecimalInt(fractionalParts);
     }
-    while (realNumber[i] != '.') {
-        wholeParts += realNumber[i];
-        i++;
-    }
-    i++;
-    while (i < realNumber.length()) {
-        fractionalParts += realNumber[i];
-        i++;
-    }
-    wholePart = BigDecimalInt(wholeParts);
-    fractionalPart = BigDecimalInt(fractionalParts);
 }
 
 BigReal::BigReal(BigDecimalInt bigInteger) {
@@ -44,7 +43,18 @@ BigReal::BigReal(const BigReal& bigReal) {
     this->fractionalPart = bigReal.fractionalPart;
     this->sign = bigReal.sign;
 }
+BigReal::BigReal(BigReal &&other)
+: wholePart(other.wholePart), fractionalPart(other.fractionalPart), sign(other.sign) {}
 
+BigReal& BigReal::operator=(BigReal&& other)
+{
+    if (this != &other) {
+        wholePart = other.wholePart;
+        fractionalPart = other.fractionalPart;
+        sign = other.sign;
+    }
+    return *this;
+}
 
 BigReal& BigReal::operator= (BigReal other){
     this->sign = other.sign;
@@ -133,7 +143,7 @@ bool BigReal::operator<  (const BigReal& anotherReal){
     }
 }
 
-bool BigReal::operator>  (const BigReal& anotherReal){
+bool BigReal::operator > (const BigReal& anotherReal){
     if (this->sign != anotherReal.sign){
         return (this->sign == '+');
     }else{
@@ -175,28 +185,11 @@ ostream& operator << (ostream& out,  BigReal num){
     return out;
 }
 
-<<<<<<< Updated upstream
 istream& operator >> (istream& in, BigReal& num){
     string input;
     in >> input;
     BigReal result(input);
     num = result;
     return in;
-}
-=======
-//istream& operator >> (istream& out, BigReal num)
-//{
-//    string input;
-//    out >> input;
-//    BigReal result(input);
-//    num = result;
-//    return out;
-//}
->>>>>>> Stashed changes
-
-//(\d*\.)?\d+
-bool BigReal::checkValidInput(string input) {
-    regex pattern("((-)?\\d*\\.)?\\d+");
-    return regex_match(input, pattern);
 }
 
