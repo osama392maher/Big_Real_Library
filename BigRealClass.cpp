@@ -175,6 +175,7 @@ ostream& operator << (ostream& out,  BigReal num){
     return out;
 }
 
+<<<<<<< Updated upstream
 istream& operator >> (istream& in, BigReal& num){
     string input;
     in >> input;
@@ -182,9 +183,20 @@ istream& operator >> (istream& in, BigReal& num){
     num = result;
     return in;
 }
+=======
+//istream& operator >> (istream& out, BigReal num)
+//{
+//    string input;
+//    out >> input;
+//    BigReal result(input);
+//    num = result;
+//    return out;
+//}
+>>>>>>> Stashed changes
 
 //(\d*\.)?\d+
 bool BigReal::checkValidInput(string input) {
     regex pattern("((-)?\\d*\\.)?\\d+");
     return regex_match(input, pattern);
 }
+
