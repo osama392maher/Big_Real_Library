@@ -18,14 +18,20 @@ BigReal::BigReal(string realNumbers) {
         } else {
             sign = '+';
         }
-        while (realNumbers[i] != '.') {
+        for(int i = 0; i < realNumbers.length(); i++) {
+            if (realNumbers[i] == '.') {
+                for (int j = i + 1; j < realNumbers.length(); j++) {
+                    fractionalParts += realNumbers[j];
+                }
+                break;
+            }
             wholeParts += realNumbers[i];
-            i++;
         }
-        i++;
-        while (i < realNumbers.length()) {
-            fractionalParts += realNumbers[i];
-            i++;
+        if(wholeParts == "") {
+            wholeParts = "0";
+        }
+        if(fractionalParts == "") {
+            fractionalParts = "0";
         }
         wholePart = BigDecimalInt(wholeParts);
         fractionalPart = BigDecimalInt(fractionalParts);

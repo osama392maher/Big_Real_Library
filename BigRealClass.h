@@ -1,5 +1,5 @@
-#ifndef BIG_REAL_CLASS_BIGREALCLASS_H
-#define BIG_REAL_CLASS_BIGREALCLASS_H
+// #ifndef BIG_REAL_CLASS_BIGREALCLASS_H
+// #define BIG_REAL_CLASS_BIGREALCLASS_H
 
 #include <iostream>
 #include <string>
@@ -45,4 +45,4 @@ public:
 
 
 };
-#endif //BIG_REAL_CLASS_BIGREALCLASS_H
+// #endif //BIG_REAL_CLASS_BIGREALCLASS_H
