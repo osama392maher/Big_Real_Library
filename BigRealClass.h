@@ -18,11 +18,11 @@ public:
     explicit BigReal (string realNumber);
     explicit BigReal (BigDecimalInt bigInteger);
     BigReal (const BigReal& other);     // Copy constructor
-    BigReal (BigReal&& other);// Move constructor
+    BigReal (BigReal&& other) noexcept ;// Move constructor
 
     //Assignment operators
     BigReal& operator= (BigReal other); // Assignment operator
-    BigReal& operator= (BigReal&& other); // Move assignment operator
+    BigReal& operator= (BigReal&& other) noexcept; // Move assignment operator
 
     //Arithmetic operators
     BigReal operator+ (BigReal& other);

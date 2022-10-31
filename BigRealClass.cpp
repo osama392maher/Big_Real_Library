@@ -7,35 +7,37 @@ BigReal::BigReal(double realNumber) {
     this->fractionalPart = number.fractionalPart;
 }
 BigReal::BigReal(string realNumbers) {
-    regex pattern(R"(((-)?\d*\.)?\d+)"); //regex pattern to check if the input is valid
-    if(regex_match(realNumbers, pattern)) {
-        string wholeParts = "";
-        string fractionalParts = "";
-        int i = 0;
-        if (realNumbers[0] == '-') {
-            sign = '-';
-            i++;
-        } else {
-            sign = '+';
-        }
-        for(int i = 0; i < realNumbers.length(); i++) {
-            if (realNumbers[i] == '.') {
-                for (int j = i + 1; j < realNumbers.length(); j++) {
-                    fractionalParts += realNumbers[j];
-                }
-                break;
-            }
-            wholeParts += realNumbers[i];
-        }
-        if(wholeParts == "") {
-            wholeParts = "0";
-        }
-        if(fractionalParts == "") {
-            fractionalParts = "0";
-        }
-        wholePart = BigDecimalInt(wholeParts);
-        fractionalPart = BigDecimalInt(fractionalParts);
+    if(!checkValidInput(realNumbers)) {
+        cout << "Invalid input" << endl;
+        exit(1);
     }
+    string wholeParts = "";
+    string fractionalParts = "";
+    int i = 0;
+    if (realNumbers[0] == '-') {
+        sign = '-';
+        realNumbers.erase(0, 1);
+        i++;
+    } else {
+        sign = '+';
+    }
+    for(int i = 0; i < realNumbers.length(); i++) {
+        if (realNumbers[i] == '.') {
+            for (int j = i + 1; j < realNumbers.length(); j++) {
+                fractionalParts += realNumbers[j];
+            }
+            break;
+        }
+        wholeParts += realNumbers[i];
+    }
+    if(wholeParts == "") {
+        wholeParts = "0";
+    }
+    if(fractionalParts == "") {
+        fractionalParts = "0";
+    }
+    wholePart = BigDecimalInt(wholeParts);
+    fractionalPart = BigDecimalInt(fractionalParts);
 }
 
 BigReal::BigReal(BigDecimalInt bigInteger) {
@@ -49,18 +51,18 @@ BigReal::BigReal(const BigReal& bigReal) {
     this->fractionalPart = bigReal.fractionalPart;
     this->sign = bigReal.sign;
 }
-BigReal::BigReal(BigReal &&other)
+BigReal::BigReal(BigReal &&other)noexcept
 : wholePart(other.wholePart), fractionalPart(other.fractionalPart), sign(other.sign) {}
 
-BigReal& BigReal::operator=(BigReal&& other)
-{
-    if (this != &other) {
-        wholePart = other.wholePart;
-        fractionalPart = other.fractionalPart;
-        sign = other.sign;
-    }
-    return *this;
-}
+//BigReal& BigReal::operator=(BigReal&& other) noexcept
+//{
+//    if (this != &other) {
+//        wholePart = other.wholePart;
+//        fractionalPart = other.fractionalPart;
+//        sign = other.sign;
+//    }
+//    return *this;
+//}
 
 BigReal& BigReal::operator= (BigReal other){
     this->sign = other.sign;
@@ -70,6 +72,30 @@ BigReal& BigReal::operator= (BigReal other){
 }
 
 BigReal BigReal::operator+(BigReal& other) {
+    // ADD NEGATIVE NUMBERS
+    if (this->sign == '-' && other.sign == '-') {
+        BigReal a = *this;
+        BigReal b = other;
+        a.sign = '+';
+        b.sign = '+';
+        BigReal c = a + b;
+        c.sign = '-';
+        return c;
+    }
+    // add positive number to negative number
+    if (this->sign == '+' && other.sign == '-') {
+        BigReal a = *this;
+        BigReal b = other;
+        b.sign = '+';
+        return a - b;
+    }
+    // add negative number to positive number
+    if (this->sign == '-' && other.sign == '+') {
+        BigReal a = *this;
+        BigReal b = other;
+        a.sign = '+';
+        return b - a;
+    }
     BigReal result;
     BigDecimalInt decLHStmp = this->fractionalPart, decRHStmp = other.fractionalPart;
 
@@ -116,15 +142,20 @@ BigReal BigReal::operator-(BigReal &other) {
     BigDecimalInt decRHS(decRHStmp);
 
     //Combining whole and fraction parts then subtracting
-    string whole = wholePart.getnum(), fraction = decLHStmp.getnum(), tmpNum = whole + fraction; //1st number
+    string whole = wholePart.getnum(), fraction = decLHStmp.getnum(), tmpNum = whole + fraction;
+    if(this ->sign == '-')
+        tmpNum = "-" + tmpNum;//1st number
     BigDecimalInt newNum1(tmpNum);
     whole = other.wholePart.getnum(), fraction = decRHS.getnum(), tmpNum = whole + fraction; //2nd number
+    if(other.sign == '-')
+        tmpNum = "-" + tmpNum;
     BigDecimalInt newNum2(tmpNum);
 
     BigDecimalInt res_without_dec_point = newNum1 - newNum2;
     string res_with_dec_point = res_without_dec_point.getnum();
     res_with_dec_point.insert(res_with_dec_point.end() - decLHS.size(), '.');
-
+    if(!res_without_dec_point.Sign())
+        res_with_dec_point = "-" + res_with_dec_point;
     BigReal finalResult(res_with_dec_point);
     return finalResult;
 }
@@ -197,5 +228,10 @@ istream& operator >> (istream& in, BigReal& num){
     BigReal result(input);
     num = result;
     return in;
+}
+//[+-]?((\d+(\.\d*)?)|(\.\d+))
+bool BigReal::checkValidInput(const string &input) {
+    regex pattern("[+-]?((\\d+(\\.\\d*)?)|(\\.\\d+))");
+    return regex_match(input, pattern);
 }
 
