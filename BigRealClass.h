@@ -1,3 +1,13 @@
+/*  FCAI - Object Oriented Programming - 2022 - Assignment 2
+    Program Name: BigRealClass
+    Last Modification Date: 01/11/2022
+    Author1 and ID and Group: Osama Maher  - 20210060 - B
+    Author2 and ID and Group: Maya Ayman   - 20210508 - B
+    Author3 and ID and Group: Rawan Younis - 20210524 - B
+    Purpose: A C++ class that can hold a real number
+    with unlimited number of digits and the supporting
+    arithmatic functions.
+*/
 // #ifndef BIG_REAL_CLASS_BIGREALCLASS_H
 // #define BIG_REAL_CLASS_BIGREALCLASS_H
 

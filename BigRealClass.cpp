@@ -1,3 +1,13 @@
+/*  FCAI - Object-Oriented Programming - 2022 - Assignment 2
+    Program Name: BigRealClass
+    Last Modification Date: 01/11/2022
+    Author1 and ID and Group: Osama Maher  - 20210060 - B
+    Author2 and ID and Group: Maya Ayman   - 20210508 - B
+    Author3 and ID and Group: Rawan Younis - 20210524 - B
+    Purpose: A C++ class that can hold a real number
+    with unlimited number of digits and the supporting
+    arithmatic functions.
+*/
 #include "BigRealClass.h"
 
 //___________________________________________
@@ -27,12 +37,14 @@ BigReal::BigReal(string realNumbers) {
     int i = 0;
     if (realNumbers[0] == '-') {
         sign = '-';
+        wholeParts += sign;
         realNumbers.erase(0, 1);
         i++;
     } else {
+        wholeParts += sign;
         sign = '+';
     }
-    for (int i = 0; i < realNumbers.length(); i++) {
+    for (i = 0; i < realNumbers.length(); i++) {
         if (realNumbers[i] == '.') {
             for (int j = i + 1; j < realNumbers.length(); j++) {
                 fractionalParts += realNumbers[j];
@@ -48,6 +60,7 @@ BigReal::BigReal(string realNumbers) {
         fractionalParts = "0";
     }
     wholePart = BigDecimalInt(wholeParts);
+
     fractionalPart = BigDecimalInt(fractionalParts);
 }
 
@@ -123,6 +136,7 @@ BigReal BigReal::operator+ (BigReal & other) {
     while (decLHStmp.size() > decRHStmp.size()) {
         decRHStmp.push_back('0');
     }
+    // check signs
     BigDecimalInt decRHS(decRHStmp);
     result.fractionalPart = decLHS + decRHS;
 
@@ -227,10 +241,10 @@ bool BigReal::operator == (const BigReal & anotherReal) {
 //___________________________________________
 // I/O operators
 ostream & operator << (ostream & out, BigReal num) {
-    if (num.Sign() == '-') {
-        out << num.Sign();
-    }
-    out << num.wholePart << '.' << num.fractionalPart << "\n";
+//    if (num.Sign() == '-') {
+//        out << num.Sign();
+//    }
+    out << num.wholePart << '.' << num.fractionalPart;
     return out;
 }
 

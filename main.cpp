@@ -1,34 +1,59 @@
+/*  FCAI - Object-Oriented Programming - 2022 - Assignment 2
+    Program Name: BigRealClass
+    Last Modification Date: 01/11/2022
+    Author1 and ID and Group: Osama Maher  - 20210060 - B
+    Author2 and ID and Group: Maya Ayman   - 20210508 - B
+    Author3 and ID and Group: Rawan Younis - 20210524 - B
+    Purpose: A C++ class that can hold a real number
+    with unlimited number of digits and the supporting
+    arithmetic functions.
+*/
 #include "BigRealClass.h"
 #include "BigDecimalIntClass.h"
 
 int main() {
 
+    /*************************************************Test One********************************************************/
+    BigReal numberOne("75.344444"), numberTwo(25.66), numberThree;
+    numberThree = numberOne + numberTwo;
 
-//    BigReal a("-1");
-//    BigReal b("-2");
-//    BigReal c = a - b;
-//    cout << c << endl;
+    cout << "Test One : "<< "\n";
+    cout << numberOne << " + " << numberTwo << " = " << numberThree << "\n";
+    cout << numberOne << " - " << numberTwo << " = " << numberOne - numberTwo << "\n";
+    cout << "Is " << numberOne << " < " << numberTwo << " ? " << boolalpha << (numberOne < numberTwo) << "\n";
+    cout << "Is " << numberOne << " > " << numberTwo << " ? " << boolalpha << (numberOne > numberTwo) << "\n";
+    cout << "Is " << numberOne << " == " << numberTwo << " ? " << boolalpha << (numberOne == numberTwo) << "\n";
 
-//    BigReal a2("-1.22");
-//    BigReal b2("1.3");
-//    BigReal c2(a2 - b2);
-//    cout << c2 << endl;
-//    cin >> b2;
-//    cout << b2 << endl;
+    cout << "\n\n";
 
-//    BigDecimalInt x("12");
-//    BigReal a(-1.22);
-//    BigReal b(x);
-//    BigReal c(a - b);
-//    cout << c << endl;
+    /*************************************************Test Two********************************************************/
+    numberOne = BigReal("-134.98");
+    BigDecimalInt decIntOne("-50");
+    numberTwo = BigReal(decIntOne);
+    numberThree = numberOne + numberTwo;
 
-//    BigReal a1(1.22), b1(-2.22);
-//    BigReal c1(a1 - b1);
-//    cout << c1 << endl;
+    cout << "Test Two : "<< "\n";
+    cout << numberOne << " + " << numberTwo << " = " << numberThree << "\n";
+    cout << numberOne << " - " << numberTwo << " = " << numberOne - numberTwo << "\n";
+    cout << "Is " << numberOne << " < " << numberTwo << " ? " << boolalpha << (numberOne < numberTwo) << "\n";
+    cout << "Is " << numberOne << " > " << numberTwo << " ? " << boolalpha << (numberOne > numberTwo) << "\n";
+    cout << "Is " << numberOne << " == " << numberTwo << " ? " << boolalpha << (numberOne == numberTwo) << "\n";
 
-    BigReal a(000000.1000000), b = a;
-    //b = a;
-    cout << b;
+    cout << "\n\n";
 
-    return 0;
+    /*************************************************Test Three******************************************************/
+    numberOne = BigReal("178.90067");
+    numberTwo = BigReal("-256.4");
+    numberThree = numberOne + numberTwo;
+
+    cout << "Test Three : "<< "\n";
+    cout << numberOne << " + " << numberTwo << " = " << numberThree << "\n";
+    cout << numberOne << " - " << numberTwo << " = " << numberOne - numberTwo << "\n";
+    cout << "Is " << numberOne << " < " << numberTwo << " ? " << boolalpha << (numberOne < numberTwo) << "\n";
+    cout << "Is " << numberOne << " > " << numberTwo << " ? " << boolalpha << (numberOne > numberTwo) << "\n";
+    cout << "Is " << numberOne << " == " << numberTwo << " ? " << boolalpha << (numberOne == numberTwo) << "\n";
+    cout << numberOne << "'s sign is " << numberOne.Sign() << "\n";
+    cout << numberTwo << "'s size is " << numberTwo.size() << "\n";
+
+    cout << "\n\n";
 }
