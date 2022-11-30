@@ -62,3 +62,7 @@ cmake-build-debug/.cmake/api/v1/query/toolchains-v1
 cmake-build-debug/.cmake/api/v1/query/codemodel-v2
 cmake-build-debug/.cmake/api/v1/query/cmakeFiles-v1
 cmake-build-debug/.cmake/api/v1/query/cache-v2
+.PVS-Studio/depend_info.json
+.PVS-Studio/logs/BigDecimalIntClass.cpp.1.log
+.PVS-Studio/logs/BigRealClass.cpp.2.log
+.PVS-Studio/logs/main.cpp.3.log
